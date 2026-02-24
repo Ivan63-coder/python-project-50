@@ -2,9 +2,10 @@
 
 install:
 	uv sync
+	pip install flake8 flake8-pyproject pytest pytest-cov
 
 lint:
-	flake8 src tests
+	flake8 tests
 
 test:
 	pytest tests/

@@ -5,7 +5,11 @@ from gendiff import generate_diff
 
 
 def create_temp_file(content):
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+    with tempfile.NamedTemporaryFile(
+        mode='w',
+        suffix='.json',
+        delete=False
+    ) as f:
         json.dump(content, f)
         return f.name
 
