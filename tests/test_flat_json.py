@@ -1,6 +1,6 @@
 import os
 import pytest
-from gendiff import generate_diff
+from gendiff.generate_diff import generate_diff
 
 
 def get_fixture_path(filename):
