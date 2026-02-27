@@ -10,13 +10,13 @@ def format_value(value, depth):
         lines = ['{']
         for key, val in value.items():
             lines.append(f"{indent}{key}: {format_value(val, depth + 1)}")
-        lines.append('    ' * depth + '}')
+        lines.append('  ' * depth + '}')
         return '\n'.join(lines)
     return str(value)
 
 
 def format_stylish(diff, depth=0):
-    indent = '    ' * depth
+    indent = '  ' * depth
     lines = ['{']
 
     sorted_diff = sorted(diff, key=lambda x: x['key'])
