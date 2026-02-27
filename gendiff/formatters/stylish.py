@@ -1,22 +1,38 @@
-def format_value(value, depth):
+import json
+
+
+def format_value(value, depth=0):
     if isinstance(value, bool):
         return str(value).lower()
     if value is None:
         return 'null'
-    if isinstance(value, (int, float)):
-        return str(value)
     if isinstance(value, dict):
-        indent = '    ' * (depth + 1)
-        lines = ['{']
-        for key, val in value.items():
-            lines.append(f"{indent}{key}: {format_value(val, depth + 1)}")
-        lines.append('  ' * depth + '}')
-        return '\n'.join(lines)
-    return str(value)
+        return format_dict(value, depth + 1)
+    if isinstance(value, str):
+        return value
+    return json.dumps(value)
+
+
+def format_dict(dictionary, depth=0):
+    if not dictionary:
+        return '{}'
+
+    indent = '    ' * depth
+    lines = ['{']
+
+    for key, value in sorted(dictionary.items()):
+        formatted_value = format_value(value, depth + 1)
+        lines.append(f"{indent}    {key}: {formatted_value}")
+
+    lines.append(f"{indent}}}")
+    return '\n'.join(lines)
 
 
 def format_stylish(diff, depth=0):
-    indent = '  ' * depth
+    if not diff:
+        return '{\n}'
+
+    indent = '    ' * depth
     lines = ['{']
 
     sorted_diff = sorted(diff, key=lambda x: x['key'])
@@ -25,16 +41,16 @@ def format_stylish(diff, depth=0):
         key = item['key']
 
         if item['status'] == 'unchanged':
-            value = format_value(item['value'], depth + 1)
-            lines.append(f"{indent}    {key}: {value}")
+            formatted_value = format_value(item['value'], depth + 1)
+            lines.append(f"{indent}    {key}: {formatted_value}")
 
         elif item['status'] == 'removed':
-            value = format_value(item['value'], depth + 1)
-            lines.append(f"{indent}  - {key}: {value}")
+            formatted_value = format_value(item['value'], depth + 1)
+            lines.append(f"{indent}  - {key}: {formatted_value}")
 
         elif item['status'] == 'added':
-            value = format_value(item['value'], depth + 1)
-            lines.append(f"{indent}  + {key}: {value}")
+            formatted_value = format_value(item['value'], depth + 1)
+            lines.append(f"{indent}  + {key}: {formatted_value}")
 
         elif item['status'] == 'changed':
             old_value = format_value(item['old_value'], depth + 1)
@@ -42,5 +58,5 @@ def format_stylish(diff, depth=0):
             lines.append(f"{indent}  - {key}: {old_value}")
             lines.append(f"{indent}  + {key}: {new_value}")
 
-    lines.append(indent + '}')
+    lines.append(f"{indent}}}")
     return '\n'.join(lines)
