@@ -8,10 +8,13 @@ lint:
 	flake8 tests
 
 test:
-	pytest tests/
+	pytest tests/ -vv
 
 test-coverage:
-	pytest --cov=gendiff --cov-report=xml tests/
+	pytest --cov=gendiff --cov-report=xml --cov-report=term-missing tests/
+
+test-nested:
+    pytest tests/test_nested.py -vv
 
 .PHONY: check
 check: lint test

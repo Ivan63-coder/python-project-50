@@ -28,35 +28,60 @@ def format_dict(dictionary, depth=0):
     return '\n'.join(lines)
 
 
-def format_stylish(diff, depth=0):
-    if not diff:
-        return '{\n}'
+def format_stylish(diff):
+    result = ['{']
+    for node in diff:
+        result.append(_format_node(node, 1))
+    result.append('}')
+    return '\n'.join(result)
 
+
+def _stringify(value, depth):
+    if isinstance(value, dict):
+        indent = '    ' * (depth + 1)
+        lines = ['{']
+        for key, val in value.items():
+            lines.append(f"{indent}{key}: {_stringify(val, depth + 1)}")
+        lines.append('    ' * depth + '}')
+        return '\n'.join(lines)
+    elif isinstance(value, bool):
+        return str(value).lower()
+    elif value is None:
+        return 'null'
+    elif isinstance(value, str) and value == '':
+        return ''
+    else:
+        return str(value)
+
+
+def _format_node(node, depth):
     indent = '    ' * depth
-    lines = ['{']
+    node_indent = indent[:-2] if depth > 0 else indent
 
-    sorted_diff = sorted(diff, key=lambda x: x['key'])
+    result = []
 
-    for item in sorted_diff:
-        key = item['key']
+    if node['status'] == 'nested':
+        result.append(f"{indent}{node['key']}: {{")
+        for child in node['children']:
+            result.append(_format_node(child, depth + 1))
+        result.append(f"{indent}}}")
 
-        if item['status'] == 'unchanged':
-            formatted_value = format_value(item['value'], depth + 1)
-            lines.append(f"{indent}    {key}: {formatted_value}")
+    elif node['status'] == 'unchanged':
+        value = _stringify(node['value'], depth + 1)
+        result.append(f"{indent}{node['key']}: {value}")
 
-        elif item['status'] == 'removed':
-            formatted_value = format_value(item['value'], depth + 1)
-            lines.append(f"{indent}  - {key}: {formatted_value}")
+    elif node['status'] == 'removed':
+        value = _stringify(node['value'], depth + 1)
+        result.append(f"{node_indent}  - {node['key']}: {value}")
 
-        elif item['status'] == 'added':
-            formatted_value = format_value(item['value'], depth + 1)
-            lines.append(f"{indent}  + {key}: {formatted_value}")
+    elif node['status'] == 'added':
+        value = _stringify(node['value'], depth + 1)
+        result.append(f"{node_indent}  + {node['key']}: {value}")
 
-        elif item['status'] == 'changed':
-            old_value = format_value(item['old_value'], depth + 1)
-            new_value = format_value(item['new_value'], depth + 1)
-            lines.append(f"{indent}  - {key}: {old_value}")
-            lines.append(f"{indent}  + {key}: {new_value}")
+    elif node['status'] == 'changed':
+        old_value = _stringify(node['old_value'], depth + 1)
+        new_value = _stringify(node['new_value'], depth + 1)
+        result.append(f"{node_indent}  - {node['key']}: {old_value}")
+        result.append(f"{node_indent}  + {node['key']}: {new_value}")
 
-    lines.append(f"{indent}}}")
-    return '\n'.join(lines)
+    return '\n'.join(result)

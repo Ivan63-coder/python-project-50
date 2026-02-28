@@ -34,7 +34,6 @@ def test_generate_diff_flat_json():
 
 
 def test_generate_diff_flat_json_with_format():
-    """Test generate_diff with specified format."""
     file1 = get_fixture_path('file1.json')
     file2 = get_fixture_path('file2.json')
 
