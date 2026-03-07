@@ -1,0 +1,11 @@
+{"version": 2, "width": 184, "height": 35, "timestamp": 1772907222, "env": {"SHELL": "/bin/bash", "TERM": "xterm-256color"}}
+[0.01913, "o", "\u001b[?2004h\u001b]0;ivan@ivan-GE70-2QE: ~/python-project-50\u0007\u001b[01;32mivan@ivan-GE70-2QE\u001b[00m:\u001b[01;34m~/python-project-50\u001b[00m$ "]
+[2.36601, "o", "\u001b[7muv run gendiff --format json tests/test_data/flat_json/file1.json tests/test_data/flat_json/file2.json\u001b[27m"]
+[4.257435, "o", "\r\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[Cuv run gendiff --format json tests/test_data/flat_json/file1.json tests/test_data/flat_json/file2.json\r\n\u001b[?2004l\r"]
+[4.476771, "o", "[\r\n  {\r\n    \"key\": \"follow\",\r\n    \"status\": \"removed\",\r\n    \"value\": false\r\n  },\r\n  {\r\n    \"key\": \"host\",\r\n    \"status\": \"unchanged\",\r\n    \"value\": \"hexlet.io\"\r\n  },\r\n  {\r\n    \"key\": \"proxy\",\r\n    \"status\": \"removed\",\r\n    \"value\": \"123.234.53.22\"\r\n  },\r\n  {\r\n    \"key\": \"timeout\",\r\n    \"status\": \"changed\",\r\n    \"old_value\": 50,\r\n    \"new_value\": 20\r\n  },\r\n  {\r\n    \"key\": \"verbose\",\r\n    \"status\": \"added\",\r\n    \"value\": true\r\n  }\r\n]\r\n"]
+[4.498076, "o", "\u001b[?2004h\u001b]0;ivan@ivan-GE70-2QE: ~/python-project-50\u0007\u001b[01;32mivan@ivan-GE70-2QE\u001b[00m:\u001b[01;34m~/python-project-50\u001b[00m$ "]
+[5.750159, "o", "e"]
+[6.043514, "o", "x"]
+[6.261618, "o", "i"]
+[6.688867, "o", "t"]
+[8.041953, "o", "\r\n\u001b[?2004l\rexit\r\n"]
