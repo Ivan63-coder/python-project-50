@@ -1,7 +1,8 @@
 import json
-import tempfile
 import os
-from gendiff import generate_diff
+import tempfile
+
+from gendiff.generate_diff import generate_diff
 
 
 def create_temp_file(content):
