@@ -28,12 +28,12 @@ def test_generate_diff():
     }
 
     expected = """{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
+    - follow: false
+        host: hexlet.io
+    - proxy: 123.234.53.22
+    - timeout: 50
+    + timeout: 20
+    + verbose: true
 }"""
 
     file1 = create_temp_file(data1)
