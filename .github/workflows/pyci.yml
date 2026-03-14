@@ -32,3 +32,4 @@ jobs:
             -Dsonar.projectKey=Ivan63-coder_python-project-50
             -Dsonar.organization=ivan63-coder-1
             -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.verbose=true
