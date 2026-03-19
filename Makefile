@@ -1,22 +1,21 @@
-.PHONY: install lint test coverage
-
 install:
 	uv sync
-	pip install pyyaml>=6.0
-	pip install flake8 flake8-pyproject pytest pytest-cov
 
-
-lint:
-	flake8 tests
+run:
+	uv run hexlet-python-package
 
 test:
-	pytest tests/ -v
+	uv run pytest
 
 test-coverage:
-	pytest --cov=gendiff --cov-report=xml --cov-report=term-missing tests/
+	uv run pytest --cov=hexlet_python_package --cov-report xml
 
-test-nested:
-	pytest tests/test_nested.py -v
+lint:
+	uv run ruff check
 
-.PHONY: check
-check: lint test
+check: test lint
+
+build:
+	uv build
+
+.PHONY: install test lint selfcheck check build

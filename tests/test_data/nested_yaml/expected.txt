@@ -31,8 +31,8 @@
             abc: 12345
             deep: {
                 id: 45
-                }
             }
+        }
     + group3: {
             deep: {
                 id: {
