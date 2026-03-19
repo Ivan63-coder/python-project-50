@@ -27,7 +27,8 @@ def _format_node(node, depth):
         for child in node['children']:
             child_str = _format_node(child, depth + 1)
             if child_str:
-                result.append(child_str)
+                for line in child_str.split('\n'):
+                    result.append(line)
         result.append(f"{indent}}}")
 
     elif node['status'] == 'unchanged':
@@ -56,6 +57,7 @@ def format_stylish(diff):
     for node in diff:
         node_str = _format_node(node, 1)
         if node_str:
-            result.append(node_str)
+            for line in node_str.split('\n'):
+                result.append(line)
     result.append('}')
     return '\n'.join(result)
