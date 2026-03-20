@@ -1,6 +1,6 @@
 def _stringify(value, depth):
     if isinstance(value, dict):
-        indent = '    ' * depth
+        indent = ' ' * depth
         lines = ['{']
         for key, val in value.items():
             lines.append(f"{indent}    {key}: {_stringify(val, depth + 1)}")
@@ -17,7 +17,7 @@ def _stringify(value, depth):
 
 
 def _format_node(node, depth):
-    indent = '    ' * depth
+    indent = ' ' * depth
     result = []
 
     if node['status'] == 'nested':
