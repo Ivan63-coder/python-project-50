@@ -20,6 +20,7 @@ def _stringify(value, depth):
 
 def _format_node(node, depth):
     indent = '    ' * depth
+    symbol_indent = indent[:-2] if depth > 0 else indent
     result = []
 
     if node['status'] == 'nested':
@@ -27,8 +28,7 @@ def _format_node(node, depth):
         for child in node['children']:
             child_str = _format_node(child, depth + 1)
             if child_str:
-                for line in child_str.split('\n'):
-                    result.append(line)
+                result.append(child_str)
         result.append(f"{indent}}}")
 
     elif node['status'] == 'unchanged':
@@ -37,17 +37,17 @@ def _format_node(node, depth):
 
     elif node['status'] == 'removed':
         value = _stringify(node['value'], depth + 1)
-        result.append(f"{indent}  - {node['key']}: {value}")
+        result.append(f"{symbol_indent}  - {node['key']}: {value}")
 
     elif node['status'] == 'added':
         value = _stringify(node['value'], depth + 1)
-        result.append(f"{indent}  + {node['key']}: {value}")
+        result.append(f"{symbol_indent}  + {node['key']}: {value}")
 
     elif node['status'] == 'changed':
         old_value = _stringify(node['old_value'], depth + 1)
         new_value = _stringify(node['new_value'], depth + 1)
-        result.append(f"{indent}  - {node['key']}: {old_value}")
-        result.append(f"{indent}  + {node['key']}: {new_value}")
+        result.append(f"{symbol_indent}  - {node['key']}: {old_value}")
+        result.append(f"{symbol_indent}  + {node['key']}: {new_value}")
 
     return '\n'.join(result) if result else ''
 
@@ -57,7 +57,6 @@ def format_stylish(diff):
     for node in diff:
         node_str = _format_node(node, 1)
         if node_str:
-            for line in node_str.split('\n'):
-                result.append(line)
+            result.append(node_str)
     result.append('}')
     return '\n'.join(result)
