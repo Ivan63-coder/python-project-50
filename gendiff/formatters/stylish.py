@@ -16,7 +16,7 @@ def _stringify(value, depth):
         return str(value)
 
 
-def _format_node(node, depth):
+def _format_node(node, depth=1):
     indent = ' ' * (depth * 4 - 2)
     result = []
 
@@ -46,7 +46,7 @@ def _format_node(node, depth):
         result.append(f"{indent}- {node['key']}: {old_value}")
         result.append(f"{indent}+ {node['key']}: {new_value}")
 
-    return '\n'.join(result) if result else ''
+    return '\n'.join(result)
 
 
 def format_stylish(diff):
