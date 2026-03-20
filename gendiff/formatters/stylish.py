@@ -19,7 +19,11 @@ def _stringify(value, depth):
 
 
 def _format_node(node, depth):
-    indent = '    ' * depth
+    if depth == 1:
+        indent = '  '
+    else:
+        indent = '    ' * (depth - 1)
+
     result = []
 
     if node['status'] == 'nested':
