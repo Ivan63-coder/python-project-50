@@ -31,7 +31,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: SonarQubeScan
-        uses: SonarSource/sonarqube-scan-action@v7
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
