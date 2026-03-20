@@ -33,12 +33,12 @@ def test_generate_diff():
     }
 
     expected = """{
-      - follow: false
-    host: hexlet.io
-      - proxy: 123.234.53.22
-      - timeout: 50
-      + timeout: 20
-      + verbose: true
+    - follow: false
+      host: hexlet.io
+    - proxy: 123.234.53.22
+    - timeout: 50
+    + timeout: 20
+    + verbose: true
 }"""
 
     file1 = create_temp_file(data1)
@@ -74,9 +74,9 @@ def test_generate_diff_with_bool_values():
     }
 
     expected = """{
-      - follow: true
-      + follow: false
-    verbose: false
+    - follow: true
+    + follow: false
+      verbose: false
 }"""
 
     file1 = create_temp_file(data1)
@@ -104,9 +104,9 @@ def test_generate_diff_with_numbers():
     }
 
     expected = """{
-    retries: 3
-      - timeout: 50
-      + timeout: 20
+      retries: 3
+    - timeout: 50
+    + timeout: 20
 }"""
 
     file1 = create_temp_file(data1)
@@ -157,10 +157,10 @@ def test_generate_diff_all_keys_different():
     }
 
     expected = """{
-      - key1: value1
-      - key2: value2
-      + key3: value3
-      + key4: value4
+    - key1: value1
+    - key2: value2
+    + key3: value3
+    + key4: value4
 }"""
 
     file1 = create_temp_file(data1)
@@ -190,11 +190,11 @@ def test_generate_diff_with_mixed_keys():
     }
 
     expected = """{
-      - changed: old
-      + changed: new
-    common: same
-      - only_first: first
-      + only_second: second
+    - changed: old
+    + changed: new
+      common: same
+    - only_first: first
+    + only_second: second
 }"""
 
     file1 = create_temp_file(data1)
