@@ -8,15 +8,15 @@
       + setting4: blah blah
       + setting5: {
             key5: value5
-            }
-    setting6: {
-      doge: {
-          - wow: 
-          + wow: so much
+        }
+      setting6: {
+          doge: {
+              - wow: 
+              + wow: so much
+          }
+            key: value
+          + ops: vops
       }
-          key: value
-        + ops: vops
-    }
   }
   group1: {
       - baz: bas
@@ -24,21 +24,21 @@
         foo: bar
       - nest: {
             key: value
-            }
+        }
       + nest: str
   }
-    - group2: {
+  - group2: {
         abc: 12345
         deep: {
             id: 45
-            }
         }
-    + group3: {
+    }
+  + group3: {
         deep: {
             id: {
                 number: 45
-                }
             }
-        fee: 100500
         }
+        fee: 100500
+    }
 }

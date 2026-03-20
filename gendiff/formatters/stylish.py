@@ -1,10 +1,10 @@
 def _stringify(value, depth):
     if isinstance(value, dict):
-        indent = '    ' * depth
+        indent = ' ' * (depth * 4)
         lines = ['{']
         for key, val in value.items():
             lines.append(f"{indent}{key}: {_stringify(val, depth + 1)}")
-        lines.append(f"{indent}}}")
+        lines.append(' ' * ((depth - 1) * 4) + '}')
         return '\n'.join(lines)
     elif isinstance(value, bool):
         return str(value).lower()
@@ -17,7 +17,7 @@ def _stringify(value, depth):
 
 
 def _format_node(node, depth):
-    indent = '  ' * depth
+    indent = ' ' * (depth * 4 - 2)
     result = []
 
     if node['status'] == 'nested':
@@ -30,21 +30,21 @@ def _format_node(node, depth):
 
     elif node['status'] == 'unchanged':
         value = _stringify(node['value'], depth + 1)
-        result.append(f"{indent}    {node['key']}: {value}")
+        result.append(f"{indent}  {node['key']}: {value}")
 
     elif node['status'] == 'removed':
         value = _stringify(node['value'], depth + 1)
-        result.append(f"{indent}  - {node['key']}: {value}")
+        result.append(f"{indent}- {node['key']}: {value}")
 
     elif node['status'] == 'added':
         value = _stringify(node['value'], depth + 1)
-        result.append(f"{indent}  + {node['key']}: {value}")
+        result.append(f"{indent}+ {node['key']}: {value}")
 
     elif node['status'] == 'changed':
         old_value = _stringify(node['old_value'], depth + 1)
         new_value = _stringify(node['new_value'], depth + 1)
-        result.append(f"{indent}  - {node['key']}: {old_value}")
-        result.append(f"{indent}  + {node['key']}: {new_value}")
+        result.append(f"{indent}- {node['key']}: {old_value}")
+        result.append(f"{indent}+ {node['key']}: {new_value}")
 
     return '\n'.join(result) if result else ''
 
