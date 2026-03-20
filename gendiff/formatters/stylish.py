@@ -1,17 +1,15 @@
 def _stringify(value, depth):
     if isinstance(value, dict):
-        indent = '    ' * (depth + 1)
+        indent = '    ' * depth
         lines = ['{']
         for key, val in value.items():
-            lines.append(f"{indent}{key}: {_stringify(val, depth + 1)}")
-        lines.append('    ' * depth + '}')
+            lines.append(f"{indent}    {key}: {_stringify(val, depth + 1)}")
+        lines.append(f"{indent}}}")
         return '\n'.join(lines)
     elif isinstance(value, bool):
         return str(value).lower()
     elif value is None:
         return 'null'
-    elif isinstance(value, str) and value == '':
-        return ''
     elif isinstance(value, str):
         return value
     else:
@@ -19,19 +17,15 @@ def _stringify(value, depth):
 
 
 def _format_node(node, depth):
-    if depth == 1:
-        indent = '  '
-    else:
-        indent = '    ' * (depth - 1)
-
+    indent = '    ' * depth
     result = []
 
     if node['status'] == 'nested':
         result.append(f"{indent}{node['key']}: {{")
         for child in node['children']:
-            child_lines = _format_node(child, depth + 1).split('\n')
-            for line in child_lines:
-                result.append(line)
+            child_lines = _format_node(child, depth + 1)
+            if child_lines:
+                result.append(child_lines)
         result.append(f"{indent}}}")
 
     elif node['status'] == 'unchanged':

@@ -73,9 +73,9 @@ retries: 3
     file2.close()
 
     expected = """{
-      retries: 3
-    - timeout: 50
-    + timeout: 20
+        retries: 3
+      - timeout: 50
+      + timeout: 20
 }"""
 
     try:
@@ -104,9 +104,9 @@ verbose: false
     file2.close()
 
     expected = """{
-    - follow: true
-    + follow: false
-      verbose: false
+      - follow: true
+      + follow: false
+        verbose: false
 }"""
 
     try:
