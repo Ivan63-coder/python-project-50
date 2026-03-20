@@ -3,7 +3,7 @@ def _stringify(value, depth):
         indent = '    ' * depth
         lines = ['{']
         for key, val in value.items():
-            lines.append(f"{indent}    {key}: {_stringify(val, depth + 1)}")
+            lines.append(f"{indent}{key}: {_stringify(val, depth + 1)}")
         lines.append(f"{indent}}}")
         return '\n'.join(lines)
     elif isinstance(value, bool):
