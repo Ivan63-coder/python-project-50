@@ -25,9 +25,9 @@ def _format_node(node, depth):
     if node['status'] == 'nested':
         result.append(f"{indent}{node['key']}: {{")
         for child in node['children']:
-            child_str = _format_node(child, depth + 1)
-            if child_str:
-                result.append(child_str)
+            child_lines = _format_node(child, depth + 1).split('\n')
+            for line in child_lines:
+                result.append(line)
         result.append(f"{indent}}}")
 
     elif node['status'] == 'unchanged':
